@@ -1,32 +1,165 @@
 #include "gencomp.h"
 #include "cutils.h"
 
-static inline utype get_atom_affiliated_group(struct Pipeline *pipeline, utype stage_id, utype atom_id)
+#include <stdint.h>
+#include <stdio.h>
+
+static struct vec2u list_index_to_coordinates(utype list_index, utype column_count)
 {
-    utype arrp_affiliated_group = (pipeline->stage_count * 3 + 1) + pipeline->data[stage_id] + pipeline->data[pipeline->stage_count + stage_id] + atom_id;
-    return pipeline->data[arrp_affiliated_group];
+    return (struct vec2u){list_index % column_count, (utype)(list_index / column_count)};
 }
 
-static inline struct vec2u *get_atom_relative_pos(struct Pipeline *pipeline, utype gene_id, utype stage_id, utype atom_id)
+static utype coordinates_to_list_index(const struct vec2u *coordinates, utype column_count)
 {
-    utype arrp_atom_relative_pos = pipeline->global_data_size + pipeline->unique_gene_size * gene_id + pipeline->grid_config.ria_count.x * pipeline->grid_config.ria_count.y + 2 * stage_id * pipeline->atom_count + 2 * atom_id;
-    return (struct vec2u*)&pipeline->data[arrp_atom_relative_pos];
+    return (utype)(coordinates->y * column_count + coordinates->x);
 }
 
-static inline struct vec2u *get_group_relative_pos(struct Pipeline *pipeline, utype gene_id, utype stage_id, utype atom_id)
+static void create_grid(struct Grid *grid, utype cell_count)
 {
-    utype arrp_group_relative_pos = pipeline->global_data_size + pipeline->unique_gene_size * gene_id + pipeline->grid_config.ria_count.x * pipeline->grid_config.ria_count.y + 2 * pipeline->stage_count * pipeline->atom_count + pipeline->data[pipeline->stage_count * 3] * pipeline->grid_config.ria_size.x * pipeline->grid_config.ria_size.y + pipeline->data[pipeline->stage_count * 2 + stage_id] * 2 + get_atom_affiliated_group(pipeline, stage_id, atom_id) * 2;
-    return (struct vec2u*)&pipeline->data[arrp_group_relative_pos];
+    grid->cells = mem_malloc(sizeof(utype) * cell_count);
+    for_loop(i, cell_count)
+    {
+        grid->cells[i] = INVALID_UTYPE;
+    }
 }
 
-static inline struct vec2u get_atom_absolute_pos(struct Pipeline *pipeline, utype gene_id, utype stage_id, utype atom_id)
+static void destroy_grid(struct Grid *grid)
 {
-    struct vec2u *atom_relative_pos = get_atom_relative_pos(pipeline, gene_id, stage_id, atom_id);
-    struct vec2u *group_relative_pos = get_group_relative_pos(pipeline, gene_id, stage_id, atom_id);
-    return (struct vec2u){atom_relative_pos->x + group_relative_pos->x, atom_relative_pos->y + group_relative_pos->y};
+    mem_free(grid->cells);
 }
 
-void create_pipeline(struct Pipeline *pipeline, const struct GridConfig *grid_config, utype atom_count, utype max_gene, utype max_mutation_per_gene, utype max_atom_mutation, utype max_group_mutation, utype stage_count, const struct StageInfo *stages)
+static void create_mutation(struct Mutation *mutation, utype stage_count)
+{
+    mutation->id = INVALID_UTYPE;
+    mutation->new_pos = mem_malloc(sizeof(struct vec2u*) * stage_count);
+}
+
+static void destroy_mutation(struct Mutation *mutation)
+{
+    mem_free(mutation->new_pos);
+}
+
+static void create_global_mutation(struct GlobalMutation *global_mutation, utype max_atom_mutation, utype max_group_mutation, utype stage_count)
+{
+    global_mutation->atom_mutation_count = 0;
+    global_mutation->atom_mutations = mem_malloc(sizeof(struct Mutation) * max_atom_mutation);
+    for_loop(i, max_atom_mutation)
+    {
+        create_mutation(&global_mutation->atom_mutations[i], stage_count);
+    }
+    global_mutation->group_mutation_count = 0;
+    global_mutation->group_mutations = mem_malloc(sizeof(struct Mutation) * max_group_mutation);
+    for_loop(i, max_group_mutation)
+    {
+        create_mutation(&global_mutation->group_mutations[i], stage_count);
+    }
+}
+
+static void destroy_global_mutation(struct GlobalMutation *global_mutation, utype max_atom_mutation, utype max_group_mutation)
+{
+    for_loop(i, max_group_mutation)
+    {
+        destroy_mutation(&global_mutation->group_mutations[i]);
+    }
+    mem_free(global_mutation->group_mutations);
+    for_loop(i, max_atom_mutation)
+    {
+        destroy_mutation(&global_mutation->atom_mutations[i]);
+    }
+    mem_free(global_mutation->atom_mutations);
+}
+
+static void create_gene(struct Pipeline *pipeline, struct Gene *gene)
+{
+    /// allocating resources
+    gene->ria_grids = mem_malloc(sizeof(struct Grid) * pipeline->stage_count);
+    for_loop(i, pipeline->stage_count)
+    {
+        create_grid(&gene->ria_grids[i], pipeline->grid_config.ria_count.x * pipeline->grid_config.ria_count.y);
+    }
+    gene->atom_relative_pos = mem_malloc(sizeof(struct vec2u*) * pipeline->stage_count);
+    for_loop(i, pipeline->stage_count)
+    {
+        gene->atom_relative_pos[i] = mem_malloc(sizeof(struct vec2u) * pipeline->atom_count);
+    }
+    gene->group_relative_grids = mem_malloc(sizeof(struct Grid*) * pipeline->stage_count);
+    for_loop(i, pipeline->stage_count)
+    {
+        gene->group_relative_grids[i] = mem_malloc(sizeof(struct Grid) * pipeline->stage_infos[i].group_count);
+        for_loop(j, pipeline->stage_infos[i].group_count)
+        {
+            create_grid(&gene->group_relative_grids[i][j], pipeline->grid_config.ria_size.x * pipeline->grid_config.ria_size.y);
+        }
+    }
+    gene->group_pos = mem_malloc(sizeof(struct vec2u*) * pipeline->stage_count);
+    for_loop(i, pipeline->stage_count)
+    {
+        gene->group_pos[i] = mem_malloc(sizeof(struct vec2u) * pipeline->stage_infos[i].group_count);
+    }
+    gene->global_mutations = mem_malloc(sizeof(struct GlobalMutation) * pipeline->max_mutation_per_gene);
+    for_loop(i, pipeline->max_mutation_per_gene)
+    {
+        create_global_mutation(&gene->global_mutations[i], pipeline->max_atom_mutation, pipeline->max_group_mutation, pipeline->stage_count);
+    }
+    /// initializing default
+    for_loop(i, pipeline->stage_count)
+    {
+        for_loop(j, pipeline->stage_infos[i].group_count)
+        {
+            gene->ria_grids[i].cells[j] = (utype)j; // assuming group_count < grid_config.ria_count.x * grid_config.ria_count.y
+            gene->group_pos[i][j] = (struct vec2u){ j % pipeline->grid_config.ria_count.x, (utype)(j / pipeline->grid_config.ria_count.x)};
+        }
+        for_loop(j, pipeline->atom_count)
+        {
+            utype group_id = pipeline->stage_infos[i].atom_affiliations[j];
+            /// find next empty cell for the atom and set its relative position
+            for_loop(k, pipeline->grid_config.ria_size.x * pipeline->grid_config.ria_size.y)
+            {
+                if (gene->group_relative_grids[i][group_id].cells[k] == INVALID_UTYPE)
+                {
+                    gene->group_relative_grids[i][group_id].cells[k] = j;
+                    gene->atom_relative_pos[i][j] = list_index_to_coordinates(k, pipeline->grid_config.ria_size.x);
+                    break;
+                }
+            }
+        }
+    }
+}
+
+static void destroy_gene(struct Pipeline *pipeline, struct Gene *gene)
+{
+    for_loop(i, pipeline->max_mutation_per_gene)
+    {
+        destroy_global_mutation(&gene->global_mutations[i], pipeline->max_atom_mutation, pipeline->max_group_mutation);
+    }
+    mem_free(gene->global_mutations);
+    for_loop(i, pipeline->stage_count)
+    {
+        mem_free(gene->group_pos[i]);
+    }
+    mem_free(gene->group_pos);
+    for_loop(i, pipeline->stage_count)
+    {
+        for_loop(j, pipeline->stage_infos[i].group_count)
+        {
+            destroy_grid(&gene->group_relative_grids[i][j]);
+        }
+        mem_free(gene->group_relative_grids[i]);
+    }
+    mem_free(gene->group_relative_grids);
+    for_loop(i, pipeline->stage_count)
+    {
+        mem_free(gene->atom_relative_pos[i]);
+    }
+    mem_free(gene->atom_relative_pos);
+    for_loop(i, pipeline->stage_count)
+    {
+        destroy_grid(&gene->ria_grids[i]);
+    }
+    mem_free(gene->ria_grids);
+}
+
+void create_pipeline(struct Pipeline *pipeline, const struct GridConfig *grid_config, utype atom_count, utype max_gene, utype max_mutation_per_gene, utype max_atom_mutation, utype max_group_mutation, utype stage_count, struct StageInfo *stage_infos)
 {
     pipeline->grid_config = *grid_config;
     pipeline->atom_count = atom_count;
@@ -35,45 +168,67 @@ void create_pipeline(struct Pipeline *pipeline, const struct GridConfig *grid_co
     pipeline->max_mutation_per_gene = max_mutation_per_gene;
     pipeline->max_atom_mutation = max_atom_mutation;
     pipeline->max_group_mutation = max_group_mutation;
-    pipeline->global_data_size = 0;
-    pipeline->global_data_size += sizeof(utype) * (stage_count * 3 + 1); // stage offsets + stage group counts + stage group count offsets + total group count
-    utype stage_sizes[stage_count]; // COPY THOSE DATA!!!
+    pipeline->stage_infos = stage_infos;
+    /// check sum
     for_loop(i, stage_count)
     {
-        stage_sizes[i] = 0;
-        stage_sizes[i] += sizeof(utype) * stages[i].group_count; // atom_count_per_group
-        stage_sizes[i] += sizeof(utype) * atom_count * 2; // atom_affiliations + group data
-        pipeline->global_data_size += stage_sizes[i];
-
-        /// check sum
         utype atom_count_check = 0;
-        for_loop(j, stages[i].group_count)
+        for_loop(j, stage_infos[i].group_count)
         {
-            atom_count_check += stages[i].atom_count_per_group[j];
+            atom_count_check += stage_infos[i].atom_count_per_group[j];
         }
         assert(atom_count_check == atom_count);
     }
-    pipeline->unique_gene_size = 0;
-    pipeline->unique_gene_size += sizeof(utype) * grid_config->ria_count.x * grid_config->ria_count.y * stage_count; // ria grid
-    pipeline->unique_gene_size += sizeof(utype) * atom_count * 2 * stage_count; // atom relative pos
-    for_loop(i, stage_count)
+    /// init genes
+    pipeline->genes = mem_malloc(sizeof(struct Gene) * pipeline->max_gene);
+    for_loop(i, pipeline->max_gene)
     {
-        pipeline->unique_gene_size += sizeof(utype) * grid_config->ria_size.x * grid_config->ria_size.y * stages[i].group_count; // atom relative grid
-        pipeline->unique_gene_size += sizeof(utype) * 2 * stages[i].group_count; // group relative pos
+        create_gene(pipeline, &pipeline->genes[i]);
     }
-    pipeline->unique_mutation_size = 0;
-    pipeline->unique_mutation_size += sizeof(utype) * max_group_mutation * (1 /* group's ID */ + 2 * stage_count /* xy's list */) * 2 /* in case of swap */;
-    pipeline->unique_mutation_size += sizeof(utype) * max_atom_mutation * (1 /* group's ID */ + 2 * stage_count /* xy's list */) * 2 /* in case of swap */;
-    pipeline->data = mem_alloc(pipeline->global_data_size + pipeline->unique_gene_size * pipeline->max_gene + pipeline->unique_mutation_size * pipeline->max_mutation_per_gene * pipeline->max_gene);
-
-    /// Copy global data
-    for_loop(i, stage_count)
-    {
-
-    }
+    printf("Everything has been created!\n");
 }
 
 void destroy_pipeline(struct Pipeline *pipeline)
 {
-    mem_free(pipeline->data);
+    for_loop(i, pipeline->max_gene)
+    {
+        destroy_gene(pipeline, &pipeline->genes[i]);
+    }
+    mem_free(pipeline->genes);
+    printf("Everything has been destroyed...\n");
+}
+
+void show_gene_to_console(struct Pipeline *pipeline, utype stage_id, utype gene_id)
+{
+    for_loop(j, pipeline->grid_config.ria_count.y * pipeline->grid_config.ria_size.y)
+    {
+        for_loop(i, pipeline->grid_config.ria_count.x * pipeline->grid_config.ria_size.x)
+        {
+            struct vec2u ria_coords = { (utype)(i / pipeline->grid_config.ria_size.x), (utype)(j / pipeline->grid_config.ria_size.y)};
+            utype ria_list_index = coordinates_to_list_index(&ria_coords, pipeline->grid_config.ria_count.x);
+            utype group_id = pipeline->genes[gene_id].ria_grids[stage_id].cells[ria_list_index];
+            if (group_id != INVALID_UTYPE)
+            {
+                struct vec2u relative_coords = { i - ria_coords.x * pipeline->grid_config.ria_size.x, j - ria_coords.y * pipeline->grid_config.ria_size.y };
+                utype cell_list_index = coordinates_to_list_index(&relative_coords, pipeline->grid_config.ria_size.x);
+                utype atom_id = pipeline->genes[gene_id].group_relative_grids[stage_id][group_id].cells[cell_list_index];
+                if (atom_id != INVALID_UTYPE)
+                {
+                    //printf("i=%u j=%u ID=%u\t", (utype)i, (utype)j, atom_id);
+                    printf("%u\t", atom_id);
+                }
+                else
+                {
+                    //printf("hi=%u j=%u ID=.\t", (utype)i, (utype)j);
+                    printf(".\t");
+                }
+            }
+            else
+            {
+                //printf("i=%u j=%u ID=.\t", (utype)i, (utype)j);
+                printf(".\t");
+            }
+        }
+        printf("\n");
+    }
 }

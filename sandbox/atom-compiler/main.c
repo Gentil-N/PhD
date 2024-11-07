@@ -22,10 +22,21 @@ int main()
     utype stage_1_data[] = {0, 1, 4, 5, 2, 3, 6, 7, 8, 9, 12, 13, 10, 11, 14, 15, 16, 20, 24, 17, 18, 19, 21, 22, 23, 25, 26, 29, 32, 35, 27, 30, 33, 28, 31, 34};
     utype stage_2_group_count = 14;
     utype stage_2_atom_count_per_group[] = {4, 4, 4, 4, 2, 2, 2, 1, 1, 1, 1, 4, 3, 3};
-    utype stage_2_atom_affiliation[] = {0, 1, 2, 2, 1, 3, 1, 3, 0, 0, 2, 2, 3, 1, 3, 4, 4, 6, 8, 9, 5, 10, 5, 6, 7, 0, 12, 11, 13, 13, 12, 13, 11, 11, 11, 11};
-    utype stage_2_data[] = {0, 25, 8, 9, 1, 4, 6, 13, 2, 3, 10, 11, 5, 7, 12, 14, 15, 16, 20, 22, 17, 23, 24, 18, 19, 21, 27, 32, 33, 35, 26, 30, 34, 28, 29, 31};
+    utype stage_2_atom_affiliation[] = {0, 1, 2, 2, 1, 3, 1, 3, 0, 0, 2, 2, 3, 1, 3, 4, 4, 6, 8, 9, 5, 10, 5, 6, 7, 0, 12, 11, 13, 13, 12, 13, 11, 11, 12, 11};
+    utype stage_2_data[] = {0, 8, 9, 25, 1, 4, 6, 13, 2, 3, 10, 11, 5, 7, 12, 14, 15, 16, 20, 22, 17, 23, 24, 18, 19, 21, 27, 32, 33, 35, 26, 30, 34, 28, 29, 31};
 
     struct StageInfo stage_infos[] = {{stage_0_group_count, stage_0_atom_count_per_group, stage_0_atom_affiliation, stage_0_data}, {stage_1_group_count, stage_1_atom_count_per_group, stage_1_atom_affiliation, stage_1_data}, {stage_2_group_count, stage_2_atom_count_per_group, stage_2_atom_affiliation, stage_2_data}};
+
+    struct GridConfig grid_config = {0};
+    grid_config.ria_count = (struct vec2u){4, 4};
+    grid_config.ria_size = (struct vec2u){2, 2};
+    struct Pipeline pipeline = {0};
+    create_pipeline(&pipeline, &grid_config, 36, 50, 2, 1, 1, 3, stage_infos);
+    //for_loop(i, 50)
+    //{
+    //    show_gene_to_console(&pipeline, 0, i);
+    //}
+    destroy_pipeline(&pipeline);
 
     tracker_trace(trace_fn);
 }
