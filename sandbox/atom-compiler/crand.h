@@ -14,6 +14,8 @@ void crand_add_range(uint low, uint high);
 
 uint crand_gen(size_t range_id);
 
+uint crand_generate(uint low, uint high);
+
 #ifdef __cplusplus
 }
 #endif // __cplusplus

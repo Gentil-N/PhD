@@ -651,18 +651,18 @@ z_measurements: List[int] = []
 generation_id_colors: List[int] = []
 
 def run_lap() -> int:
-    population = genesis(50, RIA_COUNT, 20, 20, [stage_0, stage_1, stage_2])
+    population = genesis(2, RIA_COUNT, 20, 20, [stage_0, stage_1, stage_2])
     for family in population:
         encoded.append(family.encode_all_stages())
         z_measurements.append(family.estimate_total_transfer_cost())
         generation_id_colors.append(0)
-    population = darwin(population, 2, 1, 0, 400, 0, 0, encoded, z_measurements, generation_id_colors)
-    population = darwin(population, 2, 0, 1, 200, 400, 0, encoded, z_measurements, generation_id_colors)
+    population = darwin(population, 1, 1, 0, 30, 0, 0, encoded, z_measurements, generation_id_colors)
+    #population = darwin(population, 2, 0, 1, 200, 400, 0, encoded, z_measurements, generation_id_colors)
     return len(generation_id_colors)
 
 colors: List[int] = []
 last_size = 0
-for i in range(4):
+for i in range(1):
     current_size = run_lap()
     colors.extend([i] * (current_size - last_size))
     last_size = current_size

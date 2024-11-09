@@ -20,6 +20,15 @@ extern "C"
 
 LIST(utype);
 
+struct vec2i
+{
+    union
+    {
+        struct { int x, y; };
+        int data[2];
+    };
+};
+
 struct vec2u
 {
     union
@@ -92,7 +101,7 @@ void show_gene_to_console(const struct Pipeline *pipeline, utype gene_id, utype 
 
 void show_gene_state_to_console(const struct Pipeline *pipeline, utype gene_id);
 
-void show_all_genes_state_to_console(const struct Pipeline *pipeline);
+void show_all_gene_states_to_console(const struct Pipeline *pipeline);
 
 #ifdef __cplusplus
 }
