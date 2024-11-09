@@ -33,33 +33,33 @@ int main()
     struct Pipeline pipeline = {0};
     create_pipeline(&pipeline, &grid_config, 36, 2, 1, 3, stage_infos);
     //show_all_genes_state_to_console(&pipeline);
-    mutate_all_genes(&pipeline, 20, 20, false); // shuffle initial genes
+    mutate_all_genes(&pipeline, 100, 0, false); // shuffle initial genes
+    //show_all_genes_state_to_console(&pipeline);
+    //for_loop(i, pipeline.stage_count)
+    //{
+    //    show_gene_to_console(&pipeline, 0, i);
+    //}
+    //utype min_id = INVALID_UTYPE;
+    //for_loop(i, 100)
+    //{
+    //    mutate_all_genes(&pipeline, 1, 0, true); // mutate
+    //    measure_all_scores(&pipeline); // measure
+    //    //show_all_genes_state_to_console(&pipeline);
+    //    //printf("Generation %lu ", i);
+    //    min_id = darwin(&pipeline, false); // kill
+    //}
+    //for_loop(i, 1000)
+    //{
+    //    mutate_all_genes(&pipeline, 0, 1, true); // mutate
+    //    measure_all_scores(&pipeline); // measure
+    //    //show_all_genes_state_to_console(&pipeline);
+    //    //printf("Generation %lu ", i);
+    //    min_id = darwin(&pipeline, false); // kill
+    //}
     //show_all_genes_state_to_console(&pipeline);
     for_loop(i, pipeline.stage_count)
     {
         show_gene_to_console(&pipeline, 0, i);
-    }
-    utype min_id = INVALID_UTYPE;
-    for_loop(i, 1000)
-    {
-        mutate_all_genes(&pipeline, 1, 0, true); // mutate
-        measure_all_scores(&pipeline); // measure
-        //show_all_genes_state_to_console(&pipeline);
-        //printf("Generation %lu ", i);
-        min_id = darwin(&pipeline, false); // kill
-    }
-    for_loop(i, 1000)
-    {
-        mutate_all_genes(&pipeline, 0, 1, true); // mutate
-        measure_all_scores(&pipeline); // measure
-        //show_all_genes_state_to_console(&pipeline);
-        //printf("Generation %lu ", i);
-        min_id = darwin(&pipeline, false); // kill
-    }
-    //show_all_genes_state_to_console(&pipeline);
-    for_loop(i, pipeline.stage_count)
-    {
-        show_gene_to_console(&pipeline, min_id, i);
     }
     destroy_pipeline(&pipeline);
 

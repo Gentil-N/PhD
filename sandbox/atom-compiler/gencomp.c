@@ -267,18 +267,56 @@ static void mutate_gene_group(struct Pipeline *pipeline, utype gene_id, utype st
     struct Gene *current_gene = &pipeline->genes[gene_id];
 
     utype randomly_chosen_group_id = crand_gen(6 + stage_id);
-    struct vec2u *coords_of_random = &current_gene->group_pos[stage_id][randomly_chosen_group_id];
-    utype ria_list_index_of_random = coordinates_to_list_index(coords_of_random, pipeline->grid_config.ria_count.x);
-    struct vec2u new_pos_target = random_2d_ria_count(pipeline->grid_config.ria_count.x, pipeline->grid_config.ria_count.y, coords_of_random->x,coords_of_random->y);
+    //printf("%u %u\n", pipeline->stage_infos[stage_id].group_count, randomly_chosen_group_id);
+    struct vec2u coords_of_random = current_gene->group_pos[stage_id][randomly_chosen_group_id];
+    utype ria_list_index_of_random = coordinates_to_list_index(&coords_of_random, pipeline->grid_config.ria_count.x);
+    struct vec2u new_pos_target = random_2d_ria_count(pipeline->grid_config.ria_count.x, pipeline->grid_config.ria_count.y, coords_of_random.x,coords_of_random.y);
     utype target_ria_list_index = coordinates_to_list_index(&new_pos_target, pipeline->grid_config.ria_count.x);
     utype target_group_id = current_gene->ria_grids[stage_id].cells[target_ria_list_index];
-    //printf("group %u (%u, %u) -> (%u, %u)\n", randomly_chosen_group_id, coords_of_random->x, coords_of_random->y, new_pos_target.x, new_pos_target.y);
+
+    //if (stage_id == 0 && gene_id == 0)
+    //{
+    //    printf("before\n");
+    //    for_loop(i, pipeline->stage_infos[stage_id].group_count)
+    //    {
+    //        printf("%lu (%u, %u) | ", i, current_gene->group_pos[stage_id][i].x, current_gene->group_pos[stage_id][i].y);
+    //    }
+    //    printf("\n");
+    //    for_loop(i, pipeline->grid_config.ria_count.x * pipeline->grid_config.ria_count.y)
+    //    {
+    //        printf("%lu: %u | ", i, current_gene->ria_grids[stage_id].cells[i]);
+    //    }
+    //    printf("\n");
+    //    printf("group %u %u (%u, %u) -> (%u, %u)\n", randomly_chosen_group_id, target_group_id, coords_of_random.x, coords_of_random.y, new_pos_target.x, new_pos_target.y);
+    //}
+
     if (target_group_id != INVALID_UTYPE)
     {
         current_gene->group_pos[stage_id][randomly_chosen_group_id] = new_pos_target;
-        current_gene->group_pos[stage_id][target_group_id] = *coords_of_random;
+        //if (stage_id == 0 && gene_id == 0)
+        //{
+        //    printf("%u %u, %u %u\n", current_gene->group_pos[stage_id][target_group_id].x, current_gene->group_pos[stage_id][target_group_id].y, coords_of_random.x, coords_of_random.y);
+        //}
+        current_gene->group_pos[stage_id][target_group_id].x = coords_of_random.x;
+        current_gene->group_pos[stage_id][target_group_id].y = coords_of_random.y;
+        //if (stage_id == 0 && gene_id == 0)
+        //    printf("%u %u\n", current_gene->group_pos[stage_id][target_group_id].x, current_gene->group_pos[stage_id][target_group_id].y);
         current_gene->ria_grids[stage_id].cells[ria_list_index_of_random] = target_group_id;
         current_gene->ria_grids[stage_id].cells[target_ria_list_index] = randomly_chosen_group_id;
+        //if (stage_id == 0 && gene_id == 0)
+        //{
+        //    printf("after\n");
+        //    for_loop(i, pipeline->stage_infos[stage_id].group_count)
+        //    {
+        //        printf("%lu (%u, %u) | ", i, current_gene->group_pos[stage_id][i].x, current_gene->group_pos[stage_id][i].y);
+        //    }
+        //    printf("\n");
+        //    for_loop(i, pipeline->grid_config.ria_count.x * pipeline->grid_config.ria_count.y)
+        //    {
+        //        printf("%lu: %u | ", i, current_gene->ria_grids[stage_id].cells[i]);
+        //    }
+        //    printf("\n");
+        //}
     }
     else
     {
@@ -295,16 +333,16 @@ static void mutate_gene_atom_inside_group(struct Pipeline *pipeline, utype gene_
 
     utype randomly_chosen_atom_id = crand_gen(5);
     utype affilated_group_id = pipeline->stage_infos[stage_id].atom_affiliations[randomly_chosen_atom_id];
-    struct vec2u *coords_of_random = &current_gene->atom_relative_pos[stage_id][randomly_chosen_atom_id];
-    utype group_list_index_of_random = coordinates_to_list_index(coords_of_random, pipeline->grid_config.ria_size.x);
-    struct vec2u new_pos_target = random_2d_ria_size(pipeline->grid_config.ria_size.x, pipeline->grid_config.ria_size.y, coords_of_random->x, coords_of_random->y);
+    struct vec2u coords_of_random = current_gene->atom_relative_pos[stage_id][randomly_chosen_atom_id];
+    utype group_list_index_of_random = coordinates_to_list_index(&coords_of_random, pipeline->grid_config.ria_size.x);
+    struct vec2u new_pos_target = random_2d_ria_size(pipeline->grid_config.ria_size.x, pipeline->grid_config.ria_size.y, coords_of_random.x, coords_of_random.y);
     utype target_atom_list_index = coordinates_to_list_index(&new_pos_target, pipeline->grid_config.ria_size.x);
     utype target_atom_id = current_gene->group_relative_grids[stage_id][affilated_group_id].cells[target_atom_list_index];
     //printf("atom %u (%u, %u) -> (%u, %u)\n", randomly_chosen_atom_id, coords_of_random->x, coords_of_random->y, new_pos_target.x, new_pos_target.y);
     if (target_atom_id != INVALID_UTYPE)
     {
         current_gene->atom_relative_pos[stage_id][randomly_chosen_atom_id] = new_pos_target;
-        current_gene->atom_relative_pos[stage_id][target_atom_id] = *coords_of_random;
+        current_gene->atom_relative_pos[stage_id][target_atom_id] = coords_of_random;
         current_gene->group_relative_grids[stage_id][affilated_group_id].cells[group_list_index_of_random] = target_atom_id;
         current_gene->group_relative_grids[stage_id][affilated_group_id].cells[target_atom_list_index] = randomly_chosen_atom_id;
     }
