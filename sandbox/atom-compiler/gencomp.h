@@ -6,6 +6,7 @@
 #include <sys/types.h>
 #include <assert.h>
 #include <limits.h>
+#include <stdbool.h>
 
 #include "cutils.h"
 
@@ -42,20 +43,6 @@ struct StageInfo
     utype *groups_data;
 };
 
-struct Mutation
-{
-    utype id; // group's id or atom's id
-    struct vec2u *new_pos; // size = stage_count
-};
-
-struct GlobalMutation
-{
-    utype group_mutation_count;
-    struct Mutation *group_mutations; // size = 2 * max_atom_mutation
-    utype atom_mutation_count;
-    struct Mutation *atom_mutations; // size = 2 * max_group_mutation
-};
-
 struct Grid
 {
     utype *cells;
@@ -63,11 +50,13 @@ struct Grid
 
 struct Gene
 {
+    bool is_alive;
+    bool is_survivor;
+    utype score;
     struct Grid *ria_grids; // size = stage_count, internal size = grid_config.ria_count.x * grid_config.ria_count.y
     struct vec2u **atom_relative_pos; // size = stage_count, sub size = atom_count
     struct Grid **group_relative_grids; // size = stage_count, sub size = stage_infos[i].group_count, internal size = grid_config.ria_size.x * grid_config.ria_size.y
     struct vec2u **group_pos; // size = stage_count, sub size = stage_infos[i].group_count
-    struct GlobalMutation *global_mutations; // size = max_mutation_per_gene
 };
 
 struct Pipeline
@@ -75,19 +64,35 @@ struct Pipeline
     struct GridConfig grid_config;
     utype stage_count;
     utype atom_count;
+    utype gene_alive_count;
+    utype mutation_count_per_gene;
     utype max_gene;
-    utype max_mutation_per_gene;
-    utype max_atom_mutation;
-    utype max_group_mutation;
     struct StageInfo *stage_infos;
     struct Gene *genes; // size = max_gene
+    utype *survivor_ids; // size = gene_alive_count
 };
 
-void create_pipeline(struct Pipeline *pipeline, const struct GridConfig *grid_config, utype atom_count, utype max_gene, utype max_mutation_per_gene, utype max_atom_mutation, utype max_group_mutation, utype stage_count, struct StageInfo *stage_infos);
+void create_pipeline(struct Pipeline *pipeline, const struct GridConfig *grid_config, utype atom_count, utype gene_alive_count, utype mutation_count_per_gene, utype stage_count, struct StageInfo *stage_infos);
 
 void destroy_pipeline(struct Pipeline *pipeline);
 
-void show_gene_to_console(struct Pipeline *pipeline, utype stage_id, utype gene_id);
+void replicate_gene(struct Pipeline *pipeline, utype original_gene_id, utype target_gene_id);
+
+//void replicate_and_mutate_gene(struct Pipeline *pipeline, utype gene_id);
+
+void mutate_gene(struct Pipeline *pipeline, utype gene_id, utype group_mutation_count_per_stage, utype atom_mutation_count_per_stage, bool clone);
+
+void mutate_all_genes(struct Pipeline *pipeline, utype group_mutation_count_per_stage, utype atom_mutation_count_per_stage, bool clone);
+
+void measure_all_scores(struct Pipeline *pipeline);
+
+utype darwin(struct Pipeline *pipeline, bool show_generation_stats);
+
+void show_gene_to_console(const struct Pipeline *pipeline, utype gene_id, utype stage_id);
+
+void show_gene_state_to_console(const struct Pipeline *pipeline, utype gene_id);
+
+void show_all_genes_state_to_console(const struct Pipeline *pipeline);
 
 #ifdef __cplusplus
 }
