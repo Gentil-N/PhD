@@ -89,9 +89,9 @@ void replicate_gene(struct Pipeline *pipeline, utype original_gene_id, utype tar
 
 //void replicate_and_mutate_gene(struct Pipeline *pipeline, utype gene_id);
 
-void mutate_gene(struct Pipeline *pipeline, utype gene_id, utype group_mutation_count_per_stage, utype atom_mutation_count_per_stage, bool clone);
+void mutate_gene(struct Pipeline *pipeline, utype gene_id, utype group_mutation_count_per_stage, utype atom_mutation_count_per_stage, utype max_xshift_group, utype max_xshift_atom, bool clone);
 
-void mutate_all_genes(struct Pipeline *pipeline, utype group_mutation_count_per_stage, utype atom_mutation_count_per_stage, bool clone);
+void mutate_all_genes(struct Pipeline *pipeline, utype group_mutation_count_per_stage, utype atom_mutation_count_per_stage, utype max_xshift_group, utype max_xshift_atom, bool clone);
 
 void measure_all_scores(struct Pipeline *pipeline);
 

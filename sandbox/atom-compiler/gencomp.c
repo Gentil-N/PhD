@@ -282,34 +282,15 @@ void clone_gene(struct Pipeline *pipeline, utype original_gene_id, utype target_
     clone_gene_from_ptr(pipeline, &pipeline->genes[original_gene_id], &pipeline->genes[target_gene_id]);
 }
 
-static void mutate_gene_group(struct Pipeline *pipeline, utype gene_id, utype stage_id)
+static void mutate_gene_group(struct Pipeline *pipeline, utype gene_id, utype stage_id, utype max_xshift_group)
 {
     assert(gene_id < pipeline->max_gene);
     struct Gene *current_gene = &pipeline->genes[gene_id];
 
-    /*utype randomly_chosen_group_id = crand_gen(6 + stage_id);
-    //printf("%u %u\n", pipeline->stage_infos[stage_id].group_count, randomly_chosen_group_id);
-    struct vec2u coords_of_random = current_gene->group_pos[stage_id][randomly_chosen_group_id];
-    utype ria_list_index_of_random = coordinates_to_list_index(&coords_of_random, pipeline->grid_config.ria_count.x);
-    struct vec2u new_pos_target = random_2d_ria_count(pipeline->grid_config.ria_count.x, pipeline->grid_config.ria_count.y, coords_of_random.x,coords_of_random.y);
-    utype target_ria_list_index = coordinates_to_list_index(&new_pos_target, pipeline->grid_config.ria_count.x);
-    utype target_group_id = current_gene->ria_grids[stage_id].cells[target_ria_list_index];*/
-
     utype randomly_chosen_group_id = crand_generate(0, pipeline->stage_infos[stage_id].group_count - 1);
     struct vec2u coords_of_random = current_gene->group_pos[stage_id][randomly_chosen_group_id];
     utype ria_list_index_of_random = coordinates_to_list_index(&coords_of_random, pipeline->grid_config.ria_count.x);
-    /*int x_low = -2;
-    if (coords_of_random.x < 2) x_low = -(int)coords_of_random.x;
-    int x_up = 2;
-    if ((int)coords_of_random.x > (int)pipeline->grid_config.ria_count.x - 1 - 2) x_up = (int)pipeline->grid_config.ria_count.x - 1 - (int)coords_of_random.x;
-    int y_low = -2;
-    if (coords_of_random.y < 2) y_low = -(int)coords_of_random.y;
-    int y_up = 2;
-    if ((int)coords_of_random.y > (int)pipeline->grid_config.ria_count.y - 1 - 2) y_up = (int)pipeline->grid_config.ria_count.y - 1 - (int)coords_of_random.y;*/
-    //printf("%i %i %i %i\n", x_low, x_up, y_low, y_up);
     struct vec2u new_pos_target = random_2d_shift((int)coords_of_random.x, (int)coords_of_random.y, 2, 2, 0, (int)pipeline->grid_config.ria_count.x - 1, 0, (int)pipeline->grid_config.ria_count.y - 1);
-    //struct vec2u new_pos_target = { random_shift.x + coords_of_random.x, random_shift.y + coords_of_random.y };
-    //printf("group %u (%u, %u) -> (%u, %u)\n", randomly_chosen_group_id, coords_of_random.x, coords_of_random.y, new_pos_target.x, new_pos_target.y);
     utype target_ria_list_index = coordinates_to_list_index(&new_pos_target, pipeline->grid_config.ria_count.x);
     utype target_group_id = current_gene->ria_grids[stage_id].cells[target_ria_list_index];
 
@@ -319,40 +300,17 @@ static void mutate_gene_group(struct Pipeline *pipeline, utype gene_id, utype st
     current_gene->ria_grids[stage_id].cells[target_ria_list_index] = randomly_chosen_group_id;
 }
 
-static void mutate_gene_atom_inside_group(struct Pipeline *pipeline, utype gene_id, utype stage_id)
+static void mutate_gene_atom_inside_group(struct Pipeline *pipeline, utype gene_id, utype stage_id, utype max_xshift_atom)
 {
     assert(gene_id < pipeline->max_gene);
     struct Gene *current_gene = &pipeline->genes[gene_id];
-
-    /*utype randomly_chosen_atom_id = crand_gen(5);
-    utype affilated_group_id = pipeline->stage_infos[stage_id].atom_affiliations[randomly_chosen_atom_id];
-    struct vec2u coords_of_random = current_gene->atom_relative_pos[stage_id][randomly_chosen_atom_id];
-    utype group_list_index_of_random = coordinates_to_list_index(&coords_of_random, pipeline->grid_config.ria_size.x);
-    struct vec2u new_pos_target = random_2d_ria_size(pipeline->grid_config.ria_size.x, pipeline->grid_config.ria_size.y, coords_of_random.x, coords_of_random.y);
-    utype target_atom_list_index = coordinates_to_list_index(&new_pos_target, pipeline->grid_config.ria_size.x);
-    utype target_atom_id = current_gene->group_relative_grids[stage_id][affilated_group_id].cells[target_atom_list_index];
-    //printf("atom %u (%u, %u) -> (%u, %u)\n", randomly_chosen_atom_id, coords_of_random->x, coords_of_random->y, new_pos_target.x, new_pos_target.y);*/
 
     utype randomly_chosen_atom_id = crand_generate(0, pipeline->atom_count - 1);
     utype affilated_group_id = pipeline->stage_infos[stage_id].atom_affiliations[randomly_chosen_atom_id];
     struct vec2u coords_of_random = current_gene->atom_relative_pos[stage_id][randomly_chosen_atom_id];
     utype group_list_index_of_random = coordinates_to_list_index(&coords_of_random, pipeline->grid_config.ria_size.x);
-    //printf("%u %u %i b%i\n", pipeline->grid_config.ria_size.x, pipeline->grid_config.ria_size.y, (int)pipeline->grid_config.ria_size.x - 1 - 2, (int)coords_of_random.x > (int)pipeline->grid_config.ria_size.x - 1 - 2);
-    /*int x_low = -2;
-    if (coords_of_random.x < 2) x_low = -(int)coords_of_random.x;
-    int x_up = 2;
-    if ((int)coords_of_random.x > (int)pipeline->grid_config.ria_size.x - 1 - 2) x_up = (int)pipeline->grid_config.ria_size.x - 1 - (int)coords_of_random.x;
-    int y_low = -2;
-    if (coords_of_random.y < 2) y_low = -(int)coords_of_random.y;
-    int y_up = 2;
-    if ((int)coords_of_random.y > (int)pipeline->grid_config.ria_size.y - 1 - 2) y_up = (int)pipeline->grid_config.ria_size.y - 1 - (int)coords_of_random.y;struct vec2u new_pos_target = { random_shift.x + coords_of_random.x, random_shift.y + coords_of_random.y };*/
     //printf("%i %i %i %i\n", x_low, x_up, y_low, y_up);
-    struct vec2u new_pos_target = random_2d_shift((int)coords_of_random.x, (int)coords_of_random.y, 2, 2, 0, (int)pipeline->grid_config.ria_size.x - 1, 0, (int)pipeline->grid_config.ria_size.y - 1);
-    /*if (gene_id == 0 && stage_id == 0)
-    {
-        printf("atom %u (%u, %u) -> (%u, %u)\n", randomly_chosen_atom_id, coords_of_random.x, coords_of_random.y, new_pos_target.x, new_pos_target.y);
-        fflush(stdout);
-    }*/
+    struct vec2u new_pos_target = random_2d_shift((int)coords_of_random.x, (int)coords_of_random.y, max_xshift_atom, max_xshift_atom, 0, (int)pipeline->grid_config.ria_size.x - 1, 0, (int)pipeline->grid_config.ria_size.y - 1);
     utype target_atom_list_index = coordinates_to_list_index(&new_pos_target, pipeline->grid_config.ria_size.x);
     utype target_atom_id = current_gene->group_relative_grids[stage_id][affilated_group_id].cells[target_atom_list_index];
 
@@ -385,30 +343,34 @@ static utype get_closest_dead_gene(const struct Pipeline *pipeline, utype gene_i
     mutate_gene_atom_inside_group(pipeline, gene_id, 0);
 }*/
 
-void mutate_gene(struct Pipeline *pipeline, utype gene_id, utype group_mutation_count_per_stage, utype atom_mutation_count_per_stage, bool clone)
+void mutate_gene(struct Pipeline *pipeline, utype gene_id, utype group_mutation_count_per_stage, utype atom_mutation_count_per_stage, utype max_xshift_group, utype max_xshift_atom, bool clone)
 {
     assert(gene_id < pipeline->max_gene && pipeline->genes[gene_id].is_alive == true);
     utype actual_gene_id = gene_id;
+    //printf("before %u\n", actual_gene_id);
     if (clone == true)
     {
-        utype actual_gene_id = get_closest_dead_gene(pipeline, gene_id);
+        actual_gene_id = get_closest_dead_gene(pipeline, gene_id);
+        //printf("clone to %u\n", actual_gene_id);
         clone_gene(pipeline, gene_id, actual_gene_id);
         pipeline->genes[actual_gene_id].score = INVALID_UTYPE; // reset score to flag and avoid duplicated score measurement
+        //printf("clone to %u\n", actual_gene_id);
     }
+    //printf("mutating %u\n", actual_gene_id);
     for_loop(i, pipeline->stage_count)
     {
         for_loop(j, group_mutation_count_per_stage)
         {
-            mutate_gene_group(pipeline, actual_gene_id, i);
+            mutate_gene_group(pipeline, actual_gene_id, i, max_xshift_group);
         }
         for_loop(j, atom_mutation_count_per_stage)
         {
-            mutate_gene_atom_inside_group(pipeline, actual_gene_id, i);
+            mutate_gene_atom_inside_group(pipeline, actual_gene_id, i, max_xshift_atom);
         }
     }
 }
 
-void mutate_all_genes(struct Pipeline *pipeline, utype group_mutation_count_per_stage, utype atom_mutation_count_per_stage, bool clone)
+void mutate_all_genes(struct Pipeline *pipeline, utype group_mutation_count_per_stage, utype atom_mutation_count_per_stage, utype max_xshift_group, utype max_xshift_atom, bool clone)
 {
     for_loop(i, pipeline->max_gene)
     {
@@ -416,7 +378,7 @@ void mutate_all_genes(struct Pipeline *pipeline, utype group_mutation_count_per_
         //printf("gene %lu\n", i);
         for_loop(j, pipeline->mutation_count_per_gene)
         {
-            mutate_gene(pipeline, i, group_mutation_count_per_stage, atom_mutation_count_per_stage, clone);
+            mutate_gene(pipeline, i, group_mutation_count_per_stage, atom_mutation_count_per_stage, max_xshift_group, max_xshift_atom, clone);
             if (clone == false) break; // only one pass if the gene is not cloned!
         }
     }
@@ -450,10 +412,15 @@ void measure_all_scores(struct Pipeline *pipeline)
 {
     for_loop(i, pipeline->max_gene)
     {
+        //printf("test %lu\n", i);
         if (pipeline->genes[i].is_alive == false || pipeline->genes[i].score != INVALID_UTYPE) continue; // skip dead and "already measured" genes
+        pipeline->genes[i].score = 0;
+        //printf("score %u\n", pipeline->genes[i].score);
+        //show_gene_to_console(pipeline, i, 0);
         for_loop(j, pipeline->stage_count - 1)
         {
             pipeline->genes[i].score += measure_distance_stages(pipeline, i, j, j + 1);
+            //printf("inc %u\n", pipeline->genes[i].score);
         }
         //printf("%lu = %u\n", i, pipeline->genes[i].score);
     }

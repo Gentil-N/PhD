@@ -31,32 +31,44 @@ int main()
     grid_config.ria_count = (struct vec2u){4, 4};
     grid_config.ria_size = (struct vec2u){2, 2};
     struct Pipeline pipeline = {0};
-    create_pipeline(&pipeline, &grid_config, 36, 2, 1, 3, stage_infos);
-    mutate_all_genes(&pipeline, 20, 20, false); // shuffle initial genes
+    create_pipeline(&pipeline, &grid_config, 36, 5000, 5, 3, stage_infos);
+    mutate_all_genes(&pipeline, 20, 20, 2, 2, false); // shuffle initial genes
     utype min_id = INVALID_UTYPE;
-    for_loop(i, 30)
+    for_loop(i, 2000)
     {
-        mutate_all_genes(&pipeline, 1, 0, true); // mutate
+        mutate_all_genes(&pipeline, 1, 0, 2, 2, true); // mutate
         measure_all_scores(&pipeline); // measure
+        //show_all_gene_states_to_console(&pipeline);
+        /*for_loop(i, pipeline.max_gene)
+        {
+            for_loop(j, pipeline.stage_count)
+            {
+                show_gene_to_console(&pipeline, i, j);
+            }
+        }*/
         printf("Generation %lu ", i);
         //fflush(stdout);
         min_id = darwin(&pipeline, true); // kill
-        show_all_gene_states_to_console(&pipeline);
+        //show_all_gene_states_to_console(&pipeline);
     }
-    /*for_loop(i, 200)
+    for_loop(i, 2000)
     {
-        mutate_all_genes(&pipeline, 0, 1, true); // mutate
+        mutate_all_genes(&pipeline, 0, 1, 2, 2, true); // mutate
         measure_all_scores(&pipeline); // measure
         printf("Generation %lu ", i);
         min_id = darwin(&pipeline, true); // kill
-        }*/
+    }
     //show_gene_to_console(&pipeline, 0, 0);
-    for_loop(i, pipeline.max_gene)
+    /*for_loop(i, pipeline.max_gene)
     {
         for_loop(j, pipeline.stage_count)
         {
             show_gene_to_console(&pipeline, i, j);
         }
+    }*/
+    for_loop(j, pipeline.stage_count)
+    {
+        show_gene_to_console(&pipeline, min_id, j);
     }
     destroy_pipeline(&pipeline);
 
