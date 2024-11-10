@@ -9,80 +9,9 @@
 #include "cutils.h"
 #include "crand.h"
 
-static utype rand_ria_count_x()
-{
-    return (utype) crand_gen(1);
-}
-
-static utype rand_ria_count_y()
-{
-    return (utype) crand_gen(2);
-}
-
-static utype rand_ria_size_x()
-{
-    return (utype) crand_gen(3);
-}
-
-static utype rand_ria_size_y()
-{
-    return (utype) crand_gen(4);
-}
-
-typedef utype(*rand_func)();
-
-static struct vec2u random_2d(utype x_limit, utype y_limit, utype x_except, utype y_except, rand_func rand_x, rand_func rand_y)
-{
-    utype x_val = rand_x();
-    utype y_val = rand_y();
-    /*if (x_val == x_except && y_val == y_except)
-    {
-        if (x_limit == 1 && y_limit > 1) goto random_2d_move_y;
-        else if (x_limit > 1 && y_limit == 1) goto random_2d_move_x;
-        else if (x_limit > 1 && y_limit > 1)
-        {
-            utype choice = crand_gen(0);
-            if (choice == 0) goto random_2d_move_y;
-            else goto random_2d_move_x;
-        }
-        else goto random_2d_no_move;
-random_2d_move_x:
-random_2d_move_y:
-    }
-random_2d_no_move:*/
-    if ((x_val == x_except && y_val == y_except) && (x_limit > 1 || y_limit > 1))
-    {
-        while (x_val == x_except && y_val == y_except)
-        {
-            //printf("haha\n");
-            x_val = rand_x();
-            y_val = rand_y();
-        }
-    }
-    return (struct vec2u){ x_val, y_val };
-}
-
-static struct vec2u random_2d_ria_count(utype x_limit, utype y_limit, utype x_except, utype y_except)
-{
-    return random_2d(x_limit, y_limit, x_except, y_except, rand_ria_count_x, rand_ria_count_y);
-}
-
-static struct vec2u random_2d_ria_size(utype x_limit, utype y_limit, utype x_except, utype y_except)
-{
-    return random_2d(x_limit, y_limit, x_except, y_except, rand_ria_size_x, rand_ria_size_y);
-}
-
 /// /!\ does not handle the case where x_shift == y_shift == 0
 static struct vec2u random_2d_shift(int curr_x, int curr_y, int x_shift, int y_shift, int x_low, int x_up, int y_low, int y_up)
 {
-    /*assert(x_low <= 0 && x_up >= 0 && y_low <= 0 && y_up >= 0);
-    if (x_low == x_up && y_low == y_up) return (struct vec2i){ 0, 0 };
-    int x_val = 0, y_val = 0;
-    do {
-        x_val = crand_generate(x_low, x_up);
-        y_val = crand_generate(y_low, y_up);
-    } while ((x_val == 0 && y_val == 0) );
-    return (struct vec2i){ x_val, y_val };*/
     uint x_val = curr_x, y_val = curr_y;
     do
     {
@@ -217,16 +146,9 @@ void create_pipeline(struct Pipeline *pipeline, const struct GridConfig *grid_co
     pipeline->stage_infos = stage_infos;
     /// init random
     crand_init();
-    crand_add_range(0, 1); // #0
-    crand_add_range(0, pipeline->grid_config.ria_count.x - 1); // #1
-    crand_add_range(0, pipeline->grid_config.ria_count.y - 1); // #2
-    crand_add_range(0, pipeline->grid_config.ria_size.x - 1); // #3
-    crand_add_range(0, pipeline->grid_config.ria_size.y - 1); // #4
-    crand_add_range(0, pipeline->atom_count - 1); // #5
     /// check sum
     for_loop(i, stage_count)
     {
-        crand_add_range(0, stage_infos[i].group_count - 1); // #6+i
         utype atom_count_check = 0;
         for_loop(j, stage_infos[i].group_count)
         {
@@ -335,13 +257,6 @@ static utype get_closest_dead_gene(const struct Pipeline *pipeline, utype gene_i
     printf("unable to find a dead gene");
     exit(1);
 }
-
-/*void clone_and_mutate_gene(struct Pipeline *pipeline, utype gene_id)
-{
-    assert(gene_id < pipeline->max_gene);
-    printf("closest dead gene %u\n", get_closest_dead_gene(pipeline, 0));
-    mutate_gene_atom_inside_group(pipeline, gene_id, 0);
-}*/
 
 void mutate_gene(struct Pipeline *pipeline, utype gene_id, utype group_mutation_count_per_stage, utype atom_mutation_count_per_stage, utype max_xshift_group, utype max_xshift_atom, bool clone)
 {

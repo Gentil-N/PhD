@@ -1,14 +1,15 @@
 #ifndef __GENCOMP_H__
 #define __GENCOMP_H__
 
+#define ATOMCOMP_VERSION_MAJOR 0
+#define ATOMCOMP_VERSION_MINOR 1
+
 #include <stddef.h>
 #include <stdint.h>
 #include <sys/types.h>
 #include <assert.h>
 #include <limits.h>
 #include <stdbool.h>
-
-#include "cutils.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -17,8 +18,6 @@ extern "C"
 
 #define utype uint
 #define INVALID_UTYPE UINT_MAX
-
-LIST(utype);
 
 struct vec2i
 {
@@ -81,13 +80,13 @@ struct Pipeline
     utype *survivor_ids; // size = gene_alive_count
 };
 
+struct LogFile;
+
 void create_pipeline(struct Pipeline *pipeline, const struct GridConfig *grid_config, utype atom_count, utype gene_alive_count, utype mutation_count_per_gene, utype stage_count, struct StageInfo *stage_infos);
 
 void destroy_pipeline(struct Pipeline *pipeline);
 
-void replicate_gene(struct Pipeline *pipeline, utype original_gene_id, utype target_gene_id);
-
-//void replicate_and_mutate_gene(struct Pipeline *pipeline, utype gene_id);
+void clone_gene(struct Pipeline *pipeline, utype original_gene_id, utype target_gene_id);
 
 void mutate_gene(struct Pipeline *pipeline, utype gene_id, utype group_mutation_count_per_stage, utype atom_mutation_count_per_stage, utype max_xshift_group, utype max_xshift_atom, bool clone);
 
@@ -102,6 +101,14 @@ void show_gene_to_console(const struct Pipeline *pipeline, utype gene_id, utype 
 void show_gene_state_to_console(const struct Pipeline *pipeline, utype gene_id);
 
 void show_all_gene_states_to_console(const struct Pipeline *pipeline);
+
+struct LogFile *create_log_file(const char *name);
+
+void destroy_log_file(struct LogFile *log_file);
+
+void log_file_write_header(struct LogFile *log_file, const struct Pipeline *pipeline);
+
+void log_file_write_gene(struct LogFile *log_file, const struct Pipeline *pipeline, utype gene_id, const char *selection_rule_name);
 
 #ifdef __cplusplus
 }
