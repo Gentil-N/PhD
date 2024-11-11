@@ -13,6 +13,7 @@ set(SRC_FILES   ${SRC_DIR}/main.c
                 ${SRC_DIR}/cutils.c
                 ${SRC_DIR}/crand.cpp
                 ${SRC_DIR}/logcomp.cpp
+                ${SRC_DIR}/genrand.cpp
                 ${SRC_DIR}/gencomp.c)
 
 add_executable(atomcomp ${SRC_FILES})

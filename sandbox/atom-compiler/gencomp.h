@@ -110,6 +110,8 @@ void log_file_write_header(struct LogFile *log_file, const struct Pipeline *pipe
 
 void log_file_write_gene(struct LogFile *log_file, const struct Pipeline *pipeline, utype gene_id, const char *selection_rule_name);
 
+utype generate_random_stage(utype atom_count, utype max_atom_per_group, utype *atom_affiliations);
+
 #ifdef __cplusplus
 }
 #endif // __cplusplus
