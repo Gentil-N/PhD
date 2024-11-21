@@ -1,0 +1,44 @@
+HEADER START
+AtomComp Data File v0.1
+gridconfig=3,3,2,2
+atomcount=9
+stagecount=3
+groupcount0=5
+atomaffiliations0=3,3,1,0,2,0,2,4,3
+groupcount1=4
+atomaffiliations1=2,2,3,1,0,1,0,0,0
+groupcount2=4
+atomaffiliations2=2,0,0,0,2,3,1,0,3
+HEADER END
+GENE START
+geneid=43
+selectionrule=distance
+score=8
+0_0=5,3
+0_1=4,3
+0_2=2,4
+0_3=3,1
+0_4=3,3
+0_5=3,0
+0_6=2,3
+0_7=1,2
+0_8=4,2
+1_0=5,3
+1_1=4,3
+1_2=2,4
+1_3=3,1
+1_4=3,3
+1_5=3,0
+1_6=2,3
+1_7=2,2
+1_8=3,2
+2_0=5,3
+2_1=3,3
+2_2=2,3
+2_3=3,2
+2_4=4,3
+2_5=3,0
+2_6=2,4
+2_7=2,2
+2_8=3,1
+GENE END
