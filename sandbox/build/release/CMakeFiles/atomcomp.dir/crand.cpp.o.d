@@ -1,7 +1,6 @@
 CMakeFiles/atomcomp.dir/crand.cpp.o: \
- /home/nev/Documents/PhD/sandbox/atom-compiler/crand.cpp \
- /usr/include/stdc-predef.h \
- /home/nev/Documents/PhD/sandbox/atom-compiler/crand.h \
+ /home/nev/Documents/PhD/sandbox/crand.cpp /usr/include/stdc-predef.h \
+ /home/nev/Documents/PhD/sandbox/crand.h \
  /usr/include/x86_64-linux-gnu/sys/types.h /usr/include/features.h \
  /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \

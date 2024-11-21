@@ -1,5 +1,4 @@
-CMakeFiles/atomcomp.dir/main.c.o: \
- /home/nev/Documents/PhD/sandbox/atom-compiler/main.c \
+CMakeFiles/atomcomp.dir/main.c.o: /home/nev/Documents/PhD/sandbox/main.c \
  /usr/include/stdc-predef.h /usr/include/math.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -68,12 +67,12 @@ CMakeFiles/atomcomp.dir/main.c.o: \
  /usr/include/x86_64-linux-gnu/bits/stdio2-decl.h \
  /usr/include/x86_64-linux-gnu/bits/stdio.h \
  /usr/include/x86_64-linux-gnu/bits/stdio2.h /usr/include/assert.h \
- /home/nev/Documents/PhD/sandbox/atom-compiler/cutils.h \
+ /home/nev/Documents/PhD/sandbox/cutils.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/wchar.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
- /home/nev/Documents/PhD/sandbox/atom-compiler/gencomp.h \
+ /home/nev/Documents/PhD/sandbox/gencomp.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/limits.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/syslimits.h \
  /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \

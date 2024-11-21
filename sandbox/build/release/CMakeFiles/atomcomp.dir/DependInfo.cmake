@@ -8,12 +8,12 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/nev/Documents/PhD/sandbox/atom-compiler/cutils.c" "CMakeFiles/atomcomp.dir/cutils.c.o" "gcc" "CMakeFiles/atomcomp.dir/cutils.c.o.d"
-  "/home/nev/Documents/PhD/sandbox/atom-compiler/gencomp.c" "CMakeFiles/atomcomp.dir/gencomp.c.o" "gcc" "CMakeFiles/atomcomp.dir/gencomp.c.o.d"
-  "/home/nev/Documents/PhD/sandbox/atom-compiler/main.c" "CMakeFiles/atomcomp.dir/main.c.o" "gcc" "CMakeFiles/atomcomp.dir/main.c.o.d"
-  "/home/nev/Documents/PhD/sandbox/atom-compiler/crand.cpp" "CMakeFiles/atomcomp.dir/crand.cpp.o" "gcc" "CMakeFiles/atomcomp.dir/crand.cpp.o.d"
-  "/home/nev/Documents/PhD/sandbox/atom-compiler/genrand.cpp" "CMakeFiles/atomcomp.dir/genrand.cpp.o" "gcc" "CMakeFiles/atomcomp.dir/genrand.cpp.o.d"
-  "/home/nev/Documents/PhD/sandbox/atom-compiler/logcomp.cpp" "CMakeFiles/atomcomp.dir/logcomp.cpp.o" "gcc" "CMakeFiles/atomcomp.dir/logcomp.cpp.o.d"
+  "/home/nev/Documents/PhD/sandbox/cutils.c" "CMakeFiles/atomcomp.dir/cutils.c.o" "gcc" "CMakeFiles/atomcomp.dir/cutils.c.o.d"
+  "/home/nev/Documents/PhD/sandbox/gencomp.c" "CMakeFiles/atomcomp.dir/gencomp.c.o" "gcc" "CMakeFiles/atomcomp.dir/gencomp.c.o.d"
+  "/home/nev/Documents/PhD/sandbox/main.c" "CMakeFiles/atomcomp.dir/main.c.o" "gcc" "CMakeFiles/atomcomp.dir/main.c.o.d"
+  "/home/nev/Documents/PhD/sandbox/crand.cpp" "CMakeFiles/atomcomp.dir/crand.cpp.o" "gcc" "CMakeFiles/atomcomp.dir/crand.cpp.o.d"
+  "/home/nev/Documents/PhD/sandbox/genrand.cpp" "CMakeFiles/atomcomp.dir/genrand.cpp.o" "gcc" "CMakeFiles/atomcomp.dir/genrand.cpp.o.d"
+  "/home/nev/Documents/PhD/sandbox/logcomp.cpp" "CMakeFiles/atomcomp.dir/logcomp.cpp.o" "gcc" "CMakeFiles/atomcomp.dir/logcomp.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

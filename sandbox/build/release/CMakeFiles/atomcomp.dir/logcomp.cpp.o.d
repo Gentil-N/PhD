@@ -1,7 +1,6 @@
 CMakeFiles/atomcomp.dir/logcomp.cpp.o: \
- /home/nev/Documents/PhD/sandbox/atom-compiler/logcomp.cpp \
- /usr/include/stdc-predef.h \
- /home/nev/Documents/PhD/sandbox/atom-compiler/gencomp.h \
+ /home/nev/Documents/PhD/sandbox/logcomp.cpp /usr/include/stdc-predef.h \
+ /home/nev/Documents/PhD/sandbox/gencomp.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \

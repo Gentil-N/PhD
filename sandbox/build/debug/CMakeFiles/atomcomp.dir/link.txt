@@ -1,1 +1,0 @@
-/usr/bin/c++ -O3 -g -rdynamic CMakeFiles/atomcomp.dir/main.c.o CMakeFiles/atomcomp.dir/cutils.c.o CMakeFiles/atomcomp.dir/crand.cpp.o CMakeFiles/atomcomp.dir/gencomp.c.o -o atomcomp 

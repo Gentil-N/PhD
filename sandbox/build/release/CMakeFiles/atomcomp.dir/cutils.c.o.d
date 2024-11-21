@@ -1,8 +1,6 @@
 CMakeFiles/atomcomp.dir/cutils.c.o: \
- /home/nev/Documents/PhD/sandbox/atom-compiler/cutils.c \
- /usr/include/stdc-predef.h \
- /home/nev/Documents/PhD/sandbox/atom-compiler/cutils.h \
- /usr/include/stdlib.h \
+ /home/nev/Documents/PhD/sandbox/cutils.c /usr/include/stdc-predef.h \
+ /home/nev/Documents/PhD/sandbox/cutils.h /usr/include/stdlib.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \

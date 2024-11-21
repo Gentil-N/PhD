@@ -1,7 +1,6 @@
 CMakeFiles/atomcomp.dir/gencomp.c.o: \
- /home/nev/Documents/PhD/sandbox/atom-compiler/gencomp.c \
- /usr/include/stdc-predef.h \
- /home/nev/Documents/PhD/sandbox/atom-compiler/gencomp.h \
+ /home/nev/Documents/PhD/sandbox/gencomp.c /usr/include/stdc-predef.h \
+ /home/nev/Documents/PhD/sandbox/gencomp.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
@@ -75,5 +74,5 @@ CMakeFiles/atomcomp.dir/gencomp.c.o: \
  /usr/include/strings.h \
  /usr/include/x86_64-linux-gnu/bits/strings_fortified.h \
  /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
- /home/nev/Documents/PhD/sandbox/atom-compiler/cutils.h \
- /home/nev/Documents/PhD/sandbox/atom-compiler/crand.h
+ /home/nev/Documents/PhD/sandbox/cutils.h \
+ /home/nev/Documents/PhD/sandbox/crand.h

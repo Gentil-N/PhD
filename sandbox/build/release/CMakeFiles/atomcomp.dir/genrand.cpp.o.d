@@ -1,7 +1,6 @@
 CMakeFiles/atomcomp.dir/genrand.cpp.o: \
- /home/nev/Documents/PhD/sandbox/atom-compiler/genrand.cpp \
- /usr/include/stdc-predef.h \
- /home/nev/Documents/PhD/sandbox/atom-compiler/gencomp.h \
+ /home/nev/Documents/PhD/sandbox/genrand.cpp /usr/include/stdc-predef.h \
+ /home/nev/Documents/PhD/sandbox/gencomp.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
@@ -170,4 +169,4 @@ CMakeFiles/atomcomp.dir/genrand.cpp.o: \
  /usr/include/c++/13/bits/basic_ios.tcc \
  /usr/include/c++/13/bits/ostream.tcc /usr/include/c++/13/istream \
  /usr/include/c++/13/bits/istream.tcc \
- /home/nev/Documents/PhD/sandbox/atom-compiler/crand.h
+ /home/nev/Documents/PhD/sandbox/crand.h

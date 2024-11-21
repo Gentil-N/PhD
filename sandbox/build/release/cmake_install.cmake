@@ -1,4 +1,4 @@
-# Install script for directory: /home/nev/Documents/PhD/sandbox/atom-compiler
+# Install script for directory: /home/nev/Documents/PhD/sandbox
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/nev/Documents/PhD/sandbox/atom-compiler/build/release/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/nev/Documents/PhD/sandbox/build/release/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/nev/Documents/PhD/sandbox/atom-compiler
+CMAKE_SOURCE_DIR = /home/nev/Documents/PhD/sandbox
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/nev/Documents/PhD/sandbox/atom-compiler/build/release
+CMAKE_BINARY_DIR = /home/nev/Documents/PhD/sandbox/build/release
 
 # Include any dependencies generated for this target.
 include CMakeFiles/atomcomp.dir/depend.make
@@ -70,88 +70,88 @@ include CMakeFiles/atomcomp.dir/progress.make
 include CMakeFiles/atomcomp.dir/flags.make
 
 CMakeFiles/atomcomp.dir/main.c.o: CMakeFiles/atomcomp.dir/flags.make
-CMakeFiles/atomcomp.dir/main.c.o: /home/nev/Documents/PhD/sandbox/atom-compiler/main.c
+CMakeFiles/atomcomp.dir/main.c.o: /home/nev/Documents/PhD/sandbox/main.c
 CMakeFiles/atomcomp.dir/main.c.o: CMakeFiles/atomcomp.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nev/Documents/PhD/sandbox/atom-compiler/build/release/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/atomcomp.dir/main.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/atomcomp.dir/main.c.o -MF CMakeFiles/atomcomp.dir/main.c.o.d -o CMakeFiles/atomcomp.dir/main.c.o -c /home/nev/Documents/PhD/sandbox/atom-compiler/main.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nev/Documents/PhD/sandbox/build/release/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/atomcomp.dir/main.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/atomcomp.dir/main.c.o -MF CMakeFiles/atomcomp.dir/main.c.o.d -o CMakeFiles/atomcomp.dir/main.c.o -c /home/nev/Documents/PhD/sandbox/main.c
 
 CMakeFiles/atomcomp.dir/main.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/atomcomp.dir/main.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nev/Documents/PhD/sandbox/atom-compiler/main.c > CMakeFiles/atomcomp.dir/main.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nev/Documents/PhD/sandbox/main.c > CMakeFiles/atomcomp.dir/main.c.i
 
 CMakeFiles/atomcomp.dir/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/atomcomp.dir/main.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nev/Documents/PhD/sandbox/atom-compiler/main.c -o CMakeFiles/atomcomp.dir/main.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nev/Documents/PhD/sandbox/main.c -o CMakeFiles/atomcomp.dir/main.c.s
 
 CMakeFiles/atomcomp.dir/cutils.c.o: CMakeFiles/atomcomp.dir/flags.make
-CMakeFiles/atomcomp.dir/cutils.c.o: /home/nev/Documents/PhD/sandbox/atom-compiler/cutils.c
+CMakeFiles/atomcomp.dir/cutils.c.o: /home/nev/Documents/PhD/sandbox/cutils.c
 CMakeFiles/atomcomp.dir/cutils.c.o: CMakeFiles/atomcomp.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nev/Documents/PhD/sandbox/atom-compiler/build/release/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/atomcomp.dir/cutils.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/atomcomp.dir/cutils.c.o -MF CMakeFiles/atomcomp.dir/cutils.c.o.d -o CMakeFiles/atomcomp.dir/cutils.c.o -c /home/nev/Documents/PhD/sandbox/atom-compiler/cutils.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nev/Documents/PhD/sandbox/build/release/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/atomcomp.dir/cutils.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/atomcomp.dir/cutils.c.o -MF CMakeFiles/atomcomp.dir/cutils.c.o.d -o CMakeFiles/atomcomp.dir/cutils.c.o -c /home/nev/Documents/PhD/sandbox/cutils.c
 
 CMakeFiles/atomcomp.dir/cutils.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/atomcomp.dir/cutils.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nev/Documents/PhD/sandbox/atom-compiler/cutils.c > CMakeFiles/atomcomp.dir/cutils.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nev/Documents/PhD/sandbox/cutils.c > CMakeFiles/atomcomp.dir/cutils.c.i
 
 CMakeFiles/atomcomp.dir/cutils.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/atomcomp.dir/cutils.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nev/Documents/PhD/sandbox/atom-compiler/cutils.c -o CMakeFiles/atomcomp.dir/cutils.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nev/Documents/PhD/sandbox/cutils.c -o CMakeFiles/atomcomp.dir/cutils.c.s
 
 CMakeFiles/atomcomp.dir/crand.cpp.o: CMakeFiles/atomcomp.dir/flags.make
-CMakeFiles/atomcomp.dir/crand.cpp.o: /home/nev/Documents/PhD/sandbox/atom-compiler/crand.cpp
+CMakeFiles/atomcomp.dir/crand.cpp.o: /home/nev/Documents/PhD/sandbox/crand.cpp
 CMakeFiles/atomcomp.dir/crand.cpp.o: CMakeFiles/atomcomp.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nev/Documents/PhD/sandbox/atom-compiler/build/release/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/atomcomp.dir/crand.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/atomcomp.dir/crand.cpp.o -MF CMakeFiles/atomcomp.dir/crand.cpp.o.d -o CMakeFiles/atomcomp.dir/crand.cpp.o -c /home/nev/Documents/PhD/sandbox/atom-compiler/crand.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nev/Documents/PhD/sandbox/build/release/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/atomcomp.dir/crand.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/atomcomp.dir/crand.cpp.o -MF CMakeFiles/atomcomp.dir/crand.cpp.o.d -o CMakeFiles/atomcomp.dir/crand.cpp.o -c /home/nev/Documents/PhD/sandbox/crand.cpp
 
 CMakeFiles/atomcomp.dir/crand.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/atomcomp.dir/crand.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nev/Documents/PhD/sandbox/atom-compiler/crand.cpp > CMakeFiles/atomcomp.dir/crand.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nev/Documents/PhD/sandbox/crand.cpp > CMakeFiles/atomcomp.dir/crand.cpp.i
 
 CMakeFiles/atomcomp.dir/crand.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/atomcomp.dir/crand.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nev/Documents/PhD/sandbox/atom-compiler/crand.cpp -o CMakeFiles/atomcomp.dir/crand.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nev/Documents/PhD/sandbox/crand.cpp -o CMakeFiles/atomcomp.dir/crand.cpp.s
 
 CMakeFiles/atomcomp.dir/logcomp.cpp.o: CMakeFiles/atomcomp.dir/flags.make
-CMakeFiles/atomcomp.dir/logcomp.cpp.o: /home/nev/Documents/PhD/sandbox/atom-compiler/logcomp.cpp
+CMakeFiles/atomcomp.dir/logcomp.cpp.o: /home/nev/Documents/PhD/sandbox/logcomp.cpp
 CMakeFiles/atomcomp.dir/logcomp.cpp.o: CMakeFiles/atomcomp.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nev/Documents/PhD/sandbox/atom-compiler/build/release/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/atomcomp.dir/logcomp.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/atomcomp.dir/logcomp.cpp.o -MF CMakeFiles/atomcomp.dir/logcomp.cpp.o.d -o CMakeFiles/atomcomp.dir/logcomp.cpp.o -c /home/nev/Documents/PhD/sandbox/atom-compiler/logcomp.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nev/Documents/PhD/sandbox/build/release/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/atomcomp.dir/logcomp.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/atomcomp.dir/logcomp.cpp.o -MF CMakeFiles/atomcomp.dir/logcomp.cpp.o.d -o CMakeFiles/atomcomp.dir/logcomp.cpp.o -c /home/nev/Documents/PhD/sandbox/logcomp.cpp
 
 CMakeFiles/atomcomp.dir/logcomp.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/atomcomp.dir/logcomp.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nev/Documents/PhD/sandbox/atom-compiler/logcomp.cpp > CMakeFiles/atomcomp.dir/logcomp.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nev/Documents/PhD/sandbox/logcomp.cpp > CMakeFiles/atomcomp.dir/logcomp.cpp.i
 
 CMakeFiles/atomcomp.dir/logcomp.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/atomcomp.dir/logcomp.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nev/Documents/PhD/sandbox/atom-compiler/logcomp.cpp -o CMakeFiles/atomcomp.dir/logcomp.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nev/Documents/PhD/sandbox/logcomp.cpp -o CMakeFiles/atomcomp.dir/logcomp.cpp.s
 
 CMakeFiles/atomcomp.dir/genrand.cpp.o: CMakeFiles/atomcomp.dir/flags.make
-CMakeFiles/atomcomp.dir/genrand.cpp.o: /home/nev/Documents/PhD/sandbox/atom-compiler/genrand.cpp
+CMakeFiles/atomcomp.dir/genrand.cpp.o: /home/nev/Documents/PhD/sandbox/genrand.cpp
 CMakeFiles/atomcomp.dir/genrand.cpp.o: CMakeFiles/atomcomp.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nev/Documents/PhD/sandbox/atom-compiler/build/release/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/atomcomp.dir/genrand.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/atomcomp.dir/genrand.cpp.o -MF CMakeFiles/atomcomp.dir/genrand.cpp.o.d -o CMakeFiles/atomcomp.dir/genrand.cpp.o -c /home/nev/Documents/PhD/sandbox/atom-compiler/genrand.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nev/Documents/PhD/sandbox/build/release/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/atomcomp.dir/genrand.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/atomcomp.dir/genrand.cpp.o -MF CMakeFiles/atomcomp.dir/genrand.cpp.o.d -o CMakeFiles/atomcomp.dir/genrand.cpp.o -c /home/nev/Documents/PhD/sandbox/genrand.cpp
 
 CMakeFiles/atomcomp.dir/genrand.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/atomcomp.dir/genrand.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nev/Documents/PhD/sandbox/atom-compiler/genrand.cpp > CMakeFiles/atomcomp.dir/genrand.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nev/Documents/PhD/sandbox/genrand.cpp > CMakeFiles/atomcomp.dir/genrand.cpp.i
 
 CMakeFiles/atomcomp.dir/genrand.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/atomcomp.dir/genrand.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nev/Documents/PhD/sandbox/atom-compiler/genrand.cpp -o CMakeFiles/atomcomp.dir/genrand.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nev/Documents/PhD/sandbox/genrand.cpp -o CMakeFiles/atomcomp.dir/genrand.cpp.s
 
 CMakeFiles/atomcomp.dir/gencomp.c.o: CMakeFiles/atomcomp.dir/flags.make
-CMakeFiles/atomcomp.dir/gencomp.c.o: /home/nev/Documents/PhD/sandbox/atom-compiler/gencomp.c
+CMakeFiles/atomcomp.dir/gencomp.c.o: /home/nev/Documents/PhD/sandbox/gencomp.c
 CMakeFiles/atomcomp.dir/gencomp.c.o: CMakeFiles/atomcomp.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nev/Documents/PhD/sandbox/atom-compiler/build/release/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/atomcomp.dir/gencomp.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/atomcomp.dir/gencomp.c.o -MF CMakeFiles/atomcomp.dir/gencomp.c.o.d -o CMakeFiles/atomcomp.dir/gencomp.c.o -c /home/nev/Documents/PhD/sandbox/atom-compiler/gencomp.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nev/Documents/PhD/sandbox/build/release/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/atomcomp.dir/gencomp.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/atomcomp.dir/gencomp.c.o -MF CMakeFiles/atomcomp.dir/gencomp.c.o.d -o CMakeFiles/atomcomp.dir/gencomp.c.o -c /home/nev/Documents/PhD/sandbox/gencomp.c
 
 CMakeFiles/atomcomp.dir/gencomp.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/atomcomp.dir/gencomp.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nev/Documents/PhD/sandbox/atom-compiler/gencomp.c > CMakeFiles/atomcomp.dir/gencomp.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nev/Documents/PhD/sandbox/gencomp.c > CMakeFiles/atomcomp.dir/gencomp.c.i
 
 CMakeFiles/atomcomp.dir/gencomp.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/atomcomp.dir/gencomp.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nev/Documents/PhD/sandbox/atom-compiler/gencomp.c -o CMakeFiles/atomcomp.dir/gencomp.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nev/Documents/PhD/sandbox/gencomp.c -o CMakeFiles/atomcomp.dir/gencomp.c.s
 
 # Object files for target atomcomp
 atomcomp_OBJECTS = \
@@ -173,7 +173,7 @@ atomcomp: CMakeFiles/atomcomp.dir/genrand.cpp.o
 atomcomp: CMakeFiles/atomcomp.dir/gencomp.c.o
 atomcomp: CMakeFiles/atomcomp.dir/build.make
 atomcomp: CMakeFiles/atomcomp.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/nev/Documents/PhD/sandbox/atom-compiler/build/release/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable atomcomp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/nev/Documents/PhD/sandbox/build/release/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable atomcomp"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/atomcomp.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -185,6 +185,6 @@ CMakeFiles/atomcomp.dir/clean:
 .PHONY : CMakeFiles/atomcomp.dir/clean
 
 CMakeFiles/atomcomp.dir/depend:
-	cd /home/nev/Documents/PhD/sandbox/atom-compiler/build/release && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nev/Documents/PhD/sandbox/atom-compiler /home/nev/Documents/PhD/sandbox/atom-compiler /home/nev/Documents/PhD/sandbox/atom-compiler/build/release /home/nev/Documents/PhD/sandbox/atom-compiler/build/release /home/nev/Documents/PhD/sandbox/atom-compiler/build/release/CMakeFiles/atomcomp.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/nev/Documents/PhD/sandbox/build/release && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nev/Documents/PhD/sandbox /home/nev/Documents/PhD/sandbox /home/nev/Documents/PhD/sandbox/build/release /home/nev/Documents/PhD/sandbox/build/release /home/nev/Documents/PhD/sandbox/build/release/CMakeFiles/atomcomp.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/atomcomp.dir/depend
 

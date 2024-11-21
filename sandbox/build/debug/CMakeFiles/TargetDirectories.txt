@@ -1,3 +1,0 @@
-/home/nev/Documents/PhD/sandbox/atom-compiler/build/debug/CMakeFiles/atomcomp.dir
-/home/nev/Documents/PhD/sandbox/atom-compiler/build/debug/CMakeFiles/edit_cache.dir
-/home/nev/Documents/PhD/sandbox/atom-compiler/build/debug/CMakeFiles/rebuild_cache.dir
